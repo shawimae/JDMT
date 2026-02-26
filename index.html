@@ -1,0 +1,1285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JDMT Information Technology Services — IT Support, POS Repair, System Configuration</title>
+  <meta name="description" content="JDMT Information Technology Services provides reliable IT support, POS repair, system configuration, network setup, and computer maintenance for businesses." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --blue:#4169E1;
+      --blue2:#2f56d6;
+      --ink:#0b1220;
+      --muted:#5b677a;
+      --line:rgba(11,18,32,.10);
+      --bg:#ffffff;
+      --card:#ffffff;
+      --soft:#f6f8ff;
+      --shadow: 0 10px 30px rgba(11,18,32,.08);
+      --shadow2: 0 18px 60px rgba(11,18,32,.12);
+      --r12:12px;
+      --r16:16px;
+      --r20:20px;
+      --r24:24px;
+      --max:1180px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      color:var(--ink);
+      background:var(--bg);
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+
+    /* Subtle animated background */
+    .bg-glow{
+      position:fixed;
+      inset:-20%;
+      z-index:-1;
+      pointer-events:none;
+      background:
+        radial-gradient(600px 600px at 20% 10%, rgba(65,105,225,.18), transparent 60%),
+        radial-gradient(700px 700px at 80% 20%, rgba(65,105,225,.14), transparent 60%),
+        radial-gradient(900px 900px at 60% 80%, rgba(65,105,225,.08), transparent 60%);
+      filter: blur(0px);
+      animation: floatGlow 16s ease-in-out infinite;
+    }
+    @keyframes floatGlow{
+      0%,100%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(-1.5%,1.2%,0) scale(1.02); }
+    }
+
+    /* Layout */
+    .wrap{ width:100%; }
+    .container{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: 0 20px;
+    }
+
+    /* Top bar */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background: #0B2191;
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding: 14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 220px;
+    }
+
+    .logo-img{
+      width: 110px;
+      height: 52px;
+      object-fit: contain;
+      display:block;
+      filter: drop-shadow(0 10px 25px rgba(0,0,0,.18));
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap: 18px;
+    }
+    .nav a{
+      font-size: 13px;
+      font-weight: 800;
+      color: #FFFFFF;
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: .18s ease;
+    }
+    .nav a:hover{
+      background: rgba(255,255,255,.14);
+      color:#fff;
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background:#fff;
+      box-shadow: 0 1px 0 rgba(11,18,32,.03);
+      font-weight: 800;
+      font-size: 13px;
+      cursor:pointer;
+      transition: .18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 25px rgba(11,18,32,.08); }
+    .btn.primary{
+      background: var(--blue);
+      border-color: rgba(65,105,225,.35);
+      color:#fff;
+      box-shadow: 0 16px 35px rgba(65,105,225,.22);
+    }
+    .btn.primary:hover{ background: var(--blue2); }
+
+    /* Mobile nav */
+    .burger{
+      display:none;
+      width:42px;height:42px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.10);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+      transition:.18s ease;
+    }
+    .burger:hover{ transform: translateY(-1px); box-shadow: 0 10px 25px rgba(0,0,0,.12); }
+    .drawer{
+      display:none;
+      border-top:1px solid rgba(255,255,255,.14);
+      padding: 10px 0 16px;
+    }
+    .drawer a{
+      display:block;
+      padding: 12px 10px;
+      border-radius: 12px;
+      font-weight: 900;
+      color: rgba(255,255,255,.92);
+    }
+    .drawer a:hover{ background: rgba(255,255,255,.12); }
+
+    /* Hero */
+    .hero{
+      padding: 52px 0 24px;
+      position:relative;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 26px;
+      align-items:center;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(65,105,225,.08);
+      border: 1px solid rgba(65,105,225,.18);
+      color: rgba(11,18,32,.88);
+      font-size: 12px;
+      font-weight: 800;
+      width: fit-content;
+    }
+    .kicker svg{ color: var(--blue); }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: 44px;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      font-weight: 950;
+    }
+    .lead{
+      margin:0;
+      max-width: 56ch;
+      color: rgba(11,18,32,.72);
+      font-size: 15px;
+      line-height:1.75;
+      font-weight: 600;
+    }
+
+    .hero-cta{
+      margin-top: 18px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .trust{
+      margin-top: 16px;
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      align-items:center;
+      color: rgba(11,18,32,.60);
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .trust .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.70);
+      box-shadow: 0 6px 18px rgba(11,18,32,.05);
+    }
+    .trust .pill svg{ color: var(--blue); }
+
+    /* Hero card */
+    .hero-card{
+      border-radius: var(--r24);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.75));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+      transform: translateZ(0);
+    }
+    .hero-card .img{
+      height: 300px;
+      background: center/cover no-repeat url("assets/images/JDMT_fam.jpg");
+    }
+    .hero-card .panel{
+      padding: 14px 14px 16px;
+      display:grid;
+      gap:10px;
+    }
+    .mini-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .mini{
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 12px;
+      box-shadow: 0 10px 25px rgba(11,18,32,.06);
+    }
+    .mini .t{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color: rgba(11,18,32,.80);
+      font-weight: 900;
+      font-size: 12px;
+    }
+    .mini .v{
+      margin-top: 6px;
+      font-weight: 950;
+      font-size: 18px;
+      letter-spacing:-.02em;
+    }
+    .mini .s{
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(11,18,32,.60);
+      font-weight: 700;
+      line-height:1.45;
+    }
+
+    /* Sections */
+    section{ padding: 54px 0; }
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap:wrap;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 26px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+      font-weight: 950;
+    }
+    .section-head p{
+      margin:0;
+      color: rgba(11,18,32,.68);
+      font-weight: 600;
+      line-height:1.7;
+      max-width: 68ch;
+      font-size: 14px;
+    }
+
+    /* ===== 2 IMAGE FEATURE GRID (REPLACES MARQUEE) ===== */
+    .feature-grid{
+      padding: 26px 0 10px;
+    }
+    .image-grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .image-card{
+      border-radius: 24px;
+      overflow:hidden;
+      border:1px solid rgba(11,18,32,.10);
+      box-shadow: 0 20px 60px rgba(11,18,32,.10);
+      background:#fff;
+      transition: transform .4s ease, box-shadow .4s ease;
+      transform: translateZ(0);
+    }
+    .image-card img{
+      width:100%;
+      height: 420px;
+      object-fit: CONTAIN;
+      display:block;
+      transition: transform .6s ease;
+    }
+    .image-card:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 30px 80px rgba(11,18,32,.18);
+    }
+    .image-card:hover img{
+      transform: scale(1.04);
+    }
+
+    /* Cards */
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card{
+      border-radius: var(--r20);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+      transform: translateZ(0);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-80%;
+      background: radial-gradient(circle at 40% 30%, rgba(65,105,225,.16), transparent 55%);
+      opacity:0;
+      transition: .25s ease;
+    }
+    .card:hover:before{ opacity:1; }
+    .card:hover{ box-shadow: 0 18px 60px rgba(11,18,32,.12); transform: translateY(-2px); }
+    .card .icon{
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display:grid;
+      place-items:center;
+      background: rgba(65,105,225,.10);
+      border: 1px solid rgba(65,105,225,.18);
+      color: var(--blue);
+    }
+    .card h3{
+      margin: 12px 0 0;
+      font-size: 15px;
+      font-weight: 950;
+      letter-spacing:-.01em;
+    }
+
+    /* Split feature */
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items:stretch;
+      margin-top: 14px;
+    }
+    .media{
+      border-radius: var(--r24);
+      border:1px solid var(--line);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      background:#fff;
+      position:relative;
+      min-height: 360px;
+    }
+    .media .photo{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(11,18,32,.06), rgba(11,18,32,.22)),
+        url("https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+      transform: scale(1.02);
+    }
+    .media .badge{
+      position:absolute;
+      left: 14px;
+      bottom: 14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 60px rgba(11,18,32,.22);
+    }
+    .mark{
+      width:38px;height:38px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(65,105,225,1), rgba(65,105,225,.70));
+      box-shadow: 0 10px 25px rgba(65,105,225,.25);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      position:relative;
+    }
+    .mark:before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.50), transparent 55%);
+      transform: rotate(12deg);
+    }
+    .mark svg{ position:relative; }
+
+    .badge strong{ font-weight: 950; font-size: 13px; }
+    .badge span{ display:block; font-size: 12px; font-weight: 700; color: rgba(11,18,32,.60); margin-top:2px; }
+
+    .steps{
+      border-radius: var(--r24);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      display:grid;
+      gap: 12px;
+    }
+    .step{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(11,18,32,.08);
+      background: #fff;
+      box-shadow: 0 10px 25px rgba(11,18,32,.05);
+    }
+    .num{
+      width: 34px;height:34px;border-radius: 14px;
+      background: rgba(65,105,225,.10);
+      border:1px solid rgba(65,105,225,.18);
+      color: var(--blue);
+      font-weight: 950;
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+    }
+    .step strong{ display:block; font-weight: 950; font-size: 13px; }
+    .step p{ margin:6px 0 0; color: rgba(11,18,32,.66); font-weight: 600; font-size: 13px; line-height:1.65; }
+
+    /* Testimonials */
+    .quotes{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .quote{
+      border-radius: var(--r24);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .quote:before{
+      content:"";
+      position:absolute;
+      inset:-60%;
+      background: radial-gradient(circle at 40% 20%, rgba(65,105,225,.14), transparent 55%);
+      opacity:.75;
+    }
+    .quote .q{
+      position:relative;
+      font-size: 14px;
+      line-height: 1.75;
+      font-weight: 650;
+      color: rgba(11,18,32,.74);
+      margin:0;
+    }
+    .who{
+      position:relative;
+      margin-top: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .who strong{ font-weight: 950; font-size: 13px; }
+    .who span{ display:block; margin-top:3px; font-size: 12px; font-weight: 700; color: rgba(11,18,32,.60); }
+    .stars{
+      display:flex; gap:4px; color: var(--blue);
+    }
+
+    /* Contact */
+    .contact{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 14px;
+      align-items:stretch;
+      margin-top: 14px;
+    }
+    .contact-card{
+      border-radius: var(--r24);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .contact-card .header{
+      padding: 16px 18px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .contact-card .header h3{
+      margin:0;
+      font-size: 14px;
+      font-weight: 950;
+    }
+    .contact-card .header p{
+      margin:6px 0 0;
+      color: rgba(11,18,32,.66);
+      font-weight: 650;
+      font-size: 13px;
+      line-height:1.7;
+      max-width: 56ch;
+    }
+    form{
+      padding: 16px 18px 18px;
+      display:grid;
+      gap: 10px;
+    }
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    label{
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(11,18,32,.68);
+      display:block;
+      margin-bottom: 6px;
+    }
+    .field{
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background:#fff;
+      padding: 12px 12px;
+      font-weight: 650;
+      font-size: 14px;
+      outline:none;
+      transition: .18s ease;
+      width:100%;
+    }
+    .field:focus{
+      border-color: rgba(65,105,225,.55);
+      box-shadow: 0 0 0 4px rgba(65,105,225,.14);
+    }
+    textarea.field{ min-height: 110px; resize: vertical; }
+
+    .chip{
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      border:1px solid var(--line);
+      background: #fff;
+      color: rgba(11,18,32,.76);
+    }
+
+    .side-info{
+      border-radius: var(--r24);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      display:grid;
+      gap: 12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .side-info:before{
+      content:"";
+      position:absolute;
+      inset:-80%;
+      background: radial-gradient(circle at 40% 15%, rgba(65,105,225,.12), transparent 58%);
+      opacity:.8;
+    }
+    .info{
+      position:relative;
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(11,18,32,.08);
+      background: #fff;
+      box-shadow: 0 10px 25px rgba(11,18,32,.05);
+    }
+    .info .ico{
+      width: 40px;height:40px;border-radius: 16px;
+      background: rgba(65,105,225,.10);
+      border: 1px solid rgba(65,105,225,.18);
+      color: var(--blue);
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+    }
+    .info strong{ display:block; font-size: 13px; font-weight: 950; }
+    .info p{ margin:6px 0 0; color: rgba(11,18,32,.66); font-weight: 650; font-size: 13px; line-height:1.65; }
+
+    /* Footer */
+    footer{
+      padding: 28px 0 34px;
+      border-top: 1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(10px);
+    }
+    .foot{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 16px;
+      flex-wrap:wrap;
+    }
+    .foot small{
+      color: rgba(11,18,32,.62);
+      font-weight: 650;
+      line-height:1.6;
+    }
+    .foot .links{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .foot .links a{
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(11,18,32,.70);
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .foot .links a:hover{ border-color: rgba(65,105,225,.35); }
+
+    /* Reveal animations */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .65s ease, transform .65s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+    .reveal.delay1{ transition-delay: .08s; }
+    .reveal.delay2{ transition-delay: .16s; }
+    .reveal.delay3{ transition-delay: .24s; }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .split{ grid-template-columns: 1fr; }
+      .contact{ grid-template-columns: 1fr; }
+      h1{ font-size: 40px; }
+      .grid3{ grid-template-columns: 1fr; }
+      .quotes{ grid-template-columns: 1fr; }
+      .nav{ display:none; }
+      .burger{ display:flex; }
+      .drawer{ display:block; }
+      .drawer[hidden]{ display:none; }
+      .brand{ min-width: unset; }
+
+      .image-grid-2{ grid-template-columns: 1fr; }
+      .image-card img{ height: 320px; }
+    }
+    @media (max-width: 520px){
+      h1{ font-size: 34px; }
+      .row2{ grid-template-columns: 1fr; }
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .bg-glow{ animation:none; }
+      .reveal{ transition:none; opacity:1; transform:none; }
+      .btn:hover, .card:hover, .image-card:hover{ transform:none; }
+      .image-card img{ transition:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <a class="brand" href="#top" aria-label="JDMT home">
+          <img src="assets/images/JDMT logo.jpg" class="logo-img" alt="JDMT Logo">
+        </a>
+
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#services">Services</a>
+          <a href="#how">How we work</a>
+          <a href="#clients">Clients</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn primary" href="#contact" aria-label="Book support">
+            Book support
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M9 7h8v8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
+          <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 7h14M5 12h14M5 17h14" stroke="rgba(255,255,255,.95)" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="drawer" id="drawer" hidden>
+        <a href="#services">Services</a>
+        <a href="#how">How we work</a>
+        <a href="#clients">Clients</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker reveal">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3l2.2 6.7H21l-5.4 3.9 2 6.6L12 16.4 6.4 20.2l2-6.6L3 9.7h6.8L12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+              Senior-level IT support for growing businesses
+            </div>
+
+            <h1 class="reveal delay1">
+              Fast, clean, and reliable IT support for complete system configuration.
+            </h1>
+
+            <p class="lead reveal delay2">
+              JDMT keeps your operations running smoothly with proactive maintenance, quick troubleshooting,
+              secure configurations, and on-site or remote support. Minimal downtime. Maximum clarity.
+            </p>
+
+            <div class="hero-cta reveal delay3">
+              <a class="btn primary" href="#contact">
+                Request Support
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17L17 7" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M9 7h8v8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="btn" href="#services">
+                View Services
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 5v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M6 13l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+
+            <div class="trust reveal delay3">
+              <span class="pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2l8 4v6c0 5-3.4 9.6-8 10-4.6-.4-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M8 12l2.5 2.5L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Security-first setups
+              </span>
+
+              <span class="pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 12a8 8 0 10-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Quick response times
+              </span>
+
+              <span class="pill">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Clear documentation
+              </span>
+            </div>
+          </div>
+
+          <aside class="hero-card reveal">
+            <div class="img" role="img" aria-label="IT support team working"></div>
+            <div class="panel">
+              <div class="mini-grid">
+                <div class="mini">
+                  <div class="t">
+                    <span>POS Repair</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:var(--blue)">
+                      <path d="M6 7h12v10H6V7z" stroke="currentColor" stroke-width="2" />
+                      <path d="M8 10h8M8 13h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="v">Same-day</div>
+                  <div class="s">Quick diagnostics, clean fixes, minimal downtime.</div>
+                </div>
+                <div class="mini">
+                  <div class="t">
+                    <span>System Setup</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:var(--blue)">
+                      <path d="M12 2l8 4v6c0 5-3.4 9.6-8 10-4.6-.4-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                  </div>
+                  <div class="v">Secure</div>
+                  <div class="s">Hardening, access control, and best practices.</div>
+                </div>
+              </div>
+              <div class="mini">
+                <div class="t">
+                  <span>Maintenance</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:var(--blue)">
+                    <path d="M14.7 6.3l3 3-8.4 8.4H6.3v-3l8.4-8.4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M12 8l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="s" style="margin-top:8px">
+                  Prevent issues before they happen with scheduled updates, cleaning, backups, and performance checks.
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ✅ REPLACED MARQUEE WITH 2-IMAGE GRID -->
+    <section class="feature-grid" aria-label="JDMT highlights">
+      <div class="container">
+        <div class="image-grid-2 reveal">
+          <div class="image-card">
+            <img src="assets/images/b1.png" alt="JDMT highlight 1">
+          </div>
+          <div class="image-card">
+            <img src="assets/images/b2.png" alt="JDMT highlight 2">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="reveal">Services</h2>
+            <p class="reveal delay1">Senior-level support. Clean execution. Zero fluff.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <article class="card reveal">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M6 7h12v10H6V7z" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 10h8M8 13h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>POS Repair & Troubleshooting</h3>
+          </article>
+
+          <article class="card reveal delay1">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4 7h16v10H4V7z" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 17v3h8v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 10h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>System Configuration</h3>
+          </article>
+
+          <article class="card reveal delay2">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M5 10l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 14h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Computer Maintenance</h3>
+          </article>
+
+          <article class="card reveal">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4 12a8 8 0 1016 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 4v8l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>On-site & Remote Support</h3>
+          </article>
+
+          <article class="card reveal delay1">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 7h10v10H7V7z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Network & Device Setup</h3>
+          </article>
+
+          <article class="card reveal delay2">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2l8 4v6c0 5-3.4 9.6-8 10-4.6-.4-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Security & Compliance Basics</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW WE WORK -->
+    <section id="how">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="reveal">A simple process, executed at a senior level.</h2>
+            <p class="reveal delay1">
+              Diagnose fast, fix clean, document everything, and prevent repeat issues.
+            </p>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="media reveal">
+            <div class="photo" aria-hidden="true"></div>
+            <div class="badge">
+              <div class="mark" style="width:40px;height:40px;border-radius:16px;box-shadow:none;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 12h16" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M12 4v16" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Support you can trust</strong>
+                <span>Transparent fixes + clean handover</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="steps reveal delay1">
+            <div class="step">
+              <div class="num">1</div>
+              <div>
+                <strong>Intake & diagnostics</strong>
+                <p>We reproduce the issue and identify the root cause.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="num">2</div>
+              <div>
+                <strong>Fix & stabilize</strong>
+                <p>Clean implementation with stability testing before close.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="num">3</div>
+              <div>
+                <strong>Document & prevent</strong>
+                <p>Clear notes + recommendations to avoid repeat issues.</p>
+              </div>
+            </div>
+
+            <div class="hero-cta" style="margin-top: 2px;">
+              <a class="btn primary" href="#contact">Talk to JDMT</a>
+              <a class="btn" href="#clients">See outcomes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTS / TESTIMONIALS -->
+    <section id="clients">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="reveal">Trusted by teams that can’t afford downtime.</h2>
+            <p class="reveal delay1">
+              From retail POS to office systems — we focus on stability, speed, and smooth handovers.
+            </p>
+          </div>
+        </div>
+
+        <div class="quotes">
+          <div class="quote reveal">
+            <p class="q">
+              “Our POS issues were affecting daily sales. JDMT fixed the root problem, stabilized the setup, and documented everything.”
+            </p>
+            <div class="who">
+              <div>
+                <strong>Operations Manager</strong>
+                <span>Retail Store</span>
+              </div>
+              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            </div>
+          </div>
+
+          <div class="quote reveal delay1">
+            <p class="q">
+              “Clear explanation. Quick fixes — but also clean, secure, and future-proof.”
+            </p>
+            <div class="who">
+              <div>
+                <strong>Admin Lead</strong>
+                <span>Office Team</span>
+              </div>
+              <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="reveal">Let’s fix it — properly.</h2>
+            <p class="reveal delay1">
+              Send a request. We’ll respond with next steps and a clear plan.
+            </p>
+          </div>
+        </div>
+
+        <div class="contact">
+          <div class="contact-card reveal">
+            <div class="header">
+              <div>
+                <h3>Request Support / Quote</h3>
+                <p>Describe the issue and urgency. More detail = faster triage.</p>
+              </div>
+              <span class="chip" style="border-color: rgba(65,105,225,.25); background: rgba(65,105,225,.08); color: rgba(11,18,32,.75); font-weight:900;">
+                Response-focused
+              </span>
+            </div>
+
+            <form action="https://formspree.io/f/mrebokga" method="POST">
+              <div class="row2">
+                <div>
+                  <label for="name">Full name</label>
+                  <input class="field" id="name" name="name" placeholder="e.g., Juan Dela Cruz" required />
+                </div>
+                <div>
+                  <label for="phone">Phone</label>
+                  <input class="field" id="phone" name="phone" placeholder="e.g., +63 9XX XXX XXXX" required />
+                </div>
+              </div>
+
+              <div class="row2">
+                <div>
+                  <label for="email">Email</label>
+                  <input class="field" id="email" name="email" type="email" placeholder="you@company.com" required />
+                </div>
+                <div>
+                  <label for="service">Service type</label>
+                  <select class="field" id="service" name="service" required>
+                    <option value="" disabled selected>Select one</option>
+                    <option>POS Repair</option>
+                    <option>System Configuration</option>
+                    <option>Computer Maintenance</option>
+                    <option>Network Setup</option>
+                    <option>Remote Support</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label for="message">Issue details</label>
+                <textarea class="field" id="message" name="message" placeholder="What’s happening? When did it start? Any error messages?" required></textarea>
+              </div>
+
+              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:6px;">
+                <small style="color:rgba(11,18,32,.62);font-weight:650;line-height:1.5;">
+                  By submitting, you agree JDMT may contact you about this request.
+                </small>
+                <button class="btn primary" type="submit">
+                  Submit request
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 17L17 7" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M9 7h8v8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <aside class="side-info reveal delay1">
+            <div class="info">
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M22 16.9v3.1a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3 5.2 2 2 0 0 1 5 3h3.1a2 2 0 0 1 2 1.7l.6 3a2 2 0 0 1-.6 1.8l-1.3 1.3a16 16 0 0 0 6.9 6.9l1.3-1.3a2 2 0 0 1 1.8-.6l3 .6a2 2 0 0 1 1.7 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Support line</strong>
+                <p>+63 917 842 5175<br><span style="color:rgba(11,18,32,.52);font-weight:700;">(Replace with your real number)</span></p>
+              </div>
+            </div>
+
+            <div class="info">
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M4 9h16" stroke="currentColor" stroke-width="2"/>
+                  <path d="M9 20V9" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+              <div>
+                <strong>Business hours</strong>
+                <p>Mon–Sat • 9:00 AM – 6:00 PM<br><span style="color:rgba(11,18,32,.52);font-weight:700;">Emergency support available</span></p>
+              </div>
+            </div>
+
+            <div class="info">
+              <div class="ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 22s8-4 8-10V6l-8-4-8 4v6c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <strong>What we prioritize</strong>
+                <p>Stability, security, documentation, and practical fixes that keep operations moving.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="mark" aria-hidden="true" style="width:34px;height:34px;border-radius:14px;box-shadow:none;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 2L4 14h7l-1 8 10-14h-7l0-6z" stroke="white" stroke-width="2.2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <strong style="font-weight:950;font-size:13px;">JDMT Information Technology Services</strong>
+              <small style="display:block;margin-top:3px;">© <span id="year"></span> JDMT. All rights reserved.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="links" aria-label="Footer links">
+          <a href="#services">Services</a>
+          <a href="#how">Process</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const burger = document.getElementById("burger");
+    const drawer = document.getElementById("drawer");
+    if (burger && drawer){
+      burger.addEventListener("click", () => {
+        const isOpen = !drawer.hasAttribute("hidden");
+        if (isOpen) {
+          drawer.setAttribute("hidden", "");
+          burger.setAttribute("aria-expanded", "false");
+        } else {
+          drawer.removeAttribute("hidden");
+          burger.setAttribute("aria-expanded", "true");
+        }
+      });
+
+      drawer.querySelectorAll("a").forEach(a=>{
+        a.addEventListener("click", ()=>{
+          drawer.setAttribute("hidden", "");
+          burger.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e=>{
+        if (e.isIntersecting){
+          e.target.classList.add("show");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el=>io.observe(el));
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
