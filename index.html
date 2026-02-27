@@ -1120,7 +1120,7 @@
               </span>
             </div>
 
-            <form action="https://formspree.io/f/mrebokga" method="POST">
+            <form action="contact.php" method="POST">
               <div class="row2">
                 <div>
                   <label for="name">Full name</label>
@@ -1280,6 +1280,39 @@
 
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const contactForm = document.querySelector('#contact form');
+    if (contactForm){
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const btn = contactForm.querySelector('button[type="submit"]');
+        const original = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = 'Sending...';
+
+        try{
+          const res = await fetch(contactForm.action, {
+            method: 'POST',
+            body: new FormData(contactForm)
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (data.ok){
+            alert('✅ Request submitted! We’ll respond with next steps.');
+            contactForm.reset();
+          } else {
+            alert('❌ ' + (data.message || 'Something went wrong.'));
+          }
+        } catch {
+          alert('❌ Network error. Please try again.');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = original;
+        }
+      });
+    }
   </script>
 </body>
 </html>
